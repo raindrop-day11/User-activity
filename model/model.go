@@ -40,8 +40,8 @@ func FetchTheRecentActivity(username string) error {
 }
 
 func Display() error {
-	yellow := color.New(color.BgYellow).SprintfFunc()
-	green := color.New(color.BgGreen).SprintfFunc()
+	yellow := color.New(color.FgYellow).SprintfFunc()
+	green := color.New(color.FgGreen).SprintfFunc()
 
 	fmt.Println(green("Output:"))
 	fmt.Print("\n")
@@ -49,22 +49,22 @@ func Display() error {
 		var output string
 		switch event.Type {
 		case "CreateEvent":
-			output = fmt.Sprintf("Created %s in %s", event.Payload.Ref_type, event.Repo.Name)
+			output = fmt.Sprintf("- Created %s in %s", event.Payload.Ref_type, event.Repo.Name)
 		case "DeleteEvent":
-			output = fmt.Sprintf("Deleted %s in %s", event.Payload.Ref_type, event.Repo.Name)
+			output = fmt.Sprintf("- Deleted %s in %s", event.Payload.Ref_type, event.Repo.Name)
 		case "PushEvent":
-			output = fmt.Sprintf("Pushed %d commits to %s", event.Payload.Size, event.Repo.Name)
+			output = fmt.Sprintf("- Pushed %d commit(s) to %s", event.Payload.Size, event.Repo.Name)
 		case "PublicEvent":
-			output = fmt.Sprintf("Opened %s", event.Repo.Name)
+			output = fmt.Sprintf("- Opened %s", event.Repo.Name)
 		case "IssuesEvent":
-			output = fmt.Sprintf("%s a issue in %s", event.Payload.Action, event.Repo.Name)
+			output = fmt.Sprintf("- %s a issue in %s", event.Payload.Action, event.Repo.Name)
 		case "ForkEvent,GollumEvent":
-			output = fmt.Sprintf("%s in %s", event.Type, event.Repo.Name)
+			output = fmt.Sprintf("- %s in %s", event.Type, event.Repo.Name)
 		default:
-			output = fmt.Sprintf("%s : %s in %s", event.Type, event.Payload.Action, event.Repo.Name)
+			output = fmt.Sprintf("- %s : %s in %s", event.Type, event.Payload.Action, event.Repo.Name)
 		}
 		fmt.Println(yellow(output))
-		fmt.Print("\n")
+		fmt.Print("---------------------------------------------------------------------\n")
 	}
 	return nil
 }

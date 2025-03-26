@@ -32,6 +32,6 @@ func main() {
 
 	err := rootCmd.Execute()
 	if err != nil {
-		fmt.Println(err.Error())
+		color.Red(err.Error())
 	}
 }
