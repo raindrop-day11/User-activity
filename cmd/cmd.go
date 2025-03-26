@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"User-activity/model"
 	"errors"
+
 	"github.com/spf13/cobra"
 )
 
@@ -10,6 +12,7 @@ func RunUserActivity(cmd *cobra.Command, args []string) error {
 		return errors.New("wrong number of parameters")
 	}
 
-	return nil
+	username := args[0]
+	return model.FetchTheRecentActivity(username)
 
 }
